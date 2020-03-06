@@ -38,7 +38,10 @@ def image_resize_by_filesize(image, maxfilesize):
     img = img.resize((width, height), Image.LANCZOS)
     basename = os.path.basename(image)
     filename = '{0}_{1}.jpg'.format('resized', os.path.splitext(basename)[0])
-    filepath = '{0}/{1}'.format(os.path.dirname(image), filename)
+    if not os.path.dirname(image):
+        filepath = './{0}'.format(filename)
+    else:
+        filepath = '{0}/{1}'.format(os.path.dirname(image), filename)
     img.save(filepath, format='jpeg', optimize=True)
 
 def print_usage_exit(msg='', code=0):
